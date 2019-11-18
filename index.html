@@ -21,30 +21,30 @@
                     <div class="row">
                         <div class="col py-5">
                             <input id="inputText" class="form-control" type="text"
-                                placeholder="Enter to-do item or a Title if making a new list">
+                                placeholder="Do Something...">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col pb-2">
-                            <button id="addList" type="button" class="btn btn-primary btn-lg btn-block">Create new
+                            <button id="addList" type="button" class="btn btn-primary btn-block">Create new
                                 List</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col pb-2">
-                            <button id="addToList" type="button" class="btn btn-primary btn-lg btn-block">Add new To-Do
+                            <button id="addToList" type="button" class="btn btn-primary btn-block">Add new To-Do
                                 item</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col pb-2">
-                            <button id="deleteItem" type="button" class="btn btn-secondary btn-lg btn-block">Delete
+                            <button id="deleteItem" type="button" class="btn btn-secondary btn-block">Delete
                                 item</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col pb-2">
-                            <button id="editItem" type="button" class="btn btn-secondary btn-lg btn-block">Edit
+                            <button id="editItem" type="button" class="btn btn-secondary btn-block">Edit
                                 item</button>
                         </div>
                     </div>
@@ -53,41 +53,11 @@
                             <div class="list-group" id="addNewList" role="tablist"></div>
                         </div>
                         <div class="col-8">
-                            <div class="tab-content" id="addListItem"></div>
+                            <div class="tab-content" id="addListDiv"><span id="addListItem"></span></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="list-group" id="list-tab" role="tablist">
-                                <a class="list-group-item list-group-item-action active" id="list-home-list"
-                                    data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-                                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                                    data-toggle="list" href="#list-profile" role="tab"
-                                    aria-controls="profile">Profile</a>
-                                <a class="list-group-item list-group-item-action" id="list-messages-list"
-                                    data-toggle="list" href="#list-messages" role="tab"
-                                    aria-controls="messages">Messages</a>
-                                <a class="list-group-item list-group-item-action" id="list-settings-list"
-                                    data-toggle="list" href="#list-settings" role="tab"
-                                    aria-controls="settings">Settings</a>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="list-home" role="tabpanel"
-                                    aria-labelledby="list-home-list">...</div>
-                                <div class="tab-pane fade" id="list-profile" role="tabpanel"
-                                    aria-labelledby="list-profile-list">...</div>
-                                <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                                    aria-labelledby="list-messages-list">...</div>
-                                <div class="tab-pane fade" id="list-settings" role="tabpanel"
-                                    aria-labelledby="list-settings-list">...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-4"></div>
             </div>
         </div>
     </div>
