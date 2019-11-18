@@ -1,49 +1,62 @@
+//---------------global variables-------------//
+let toDoElements = [];
+let lNum = 0;
+
 //---------------grab all elements------------//
 
-//addToList, addListItem, addNewList, addList, deleteItem, editItem, inputText
+//addToList, deleteItem, inputText
 
 let inputText = document.getElementById('inputText');
-let addToListBtn = document.getElementById('addToList');
-let addListBtn = document.getElementById('addList');
 let deleteItemBtn = document.getElementById('deleteItem');
-let editItemBtn = document.getElementById('editItem');
+
 //html append id
-let addNewList = document.getElementById('addNewList');
-let addListItem = document.getElementById('addListItem')
-let addListDiv = document.getElementById('addListDiv')
+let addToList = document.getElementById('addToList');
 
 //-------------add event listeners----------//
-addListBtn.addEventListener('click', function (e) {
-    let aElement = document.createElement('a');
-    let tabElement = document.createElement('div');
-    aElement.innerText = inputText.value;
-    aElement.setAttribute('class', 'list-group-item list-group-item-action');
-    aElement.setAttribute('id', inputText.value + '-list');
-    aElement.setAttribute('data-toggle', 'list');
-    aElement.setAttribute('href', '#' + inputText.value);
-    aElement.setAttribute('role', 'tab');
-    addNewList.append(aElement);
-    tabElement.setAttribute('id', inputText.value);
-    tabElement.setAttribute('class', 'tab-pane');
-    tabElement.setAttribute('role', 'tabpanel');
-    tabElement.innerText = "this is working";
-    addListDiv.append(tabElement);
+
+inputText.addEventListener('keypress', function (e) {
+    console.log(e.code);
+    if (e.code === 'Enter' && inputText.value !== '') {
+        populateList(inputText.value);
+        //going to save value into array
+        toDoElements.push(inputText.value);
+        //save item to local storage
+        localStorage.setItem('todo', JSON.stringify(toDoElements));
+        inputText.value = "";
+    }
 });
-addToListBtn.addEventListener('click', function (e) {
-    let liElement = document.createElement('li');
-    liElement.innerText = inputText.value;
-    //liElement.setAttribute('class', 'tab-pane');
-    //liElement.setAttribute('id', 'asd');
-    //liElement.setAttribute('role', 'tabpanel');
-    liElement.addEventListener('click', function (e) {
-        this.display.style = "none";
+
+function populateList(content) {
+    //console.log(event.toElement.id);
+    //put data into p tag
+    let pElement = document.createElement('p');
+    pElement.innerText = content;
+    pElement.setAttribute('class', 'list-group-item');
+    pElement.setAttribute('id', lNum);
+    pElement.addEventListener('click', function (e) {
+        //console.log(event.target);
+        //this will delete the item from the to-do list
+        event.target.remove();
     });
-    addListItem.appendChild(liElement);
 
-});
-deleteItemBtn.addEventListener('click', function (e) {
+    // Assigning the attributes 
+    // to created checkbox 
+    //let checkbox = document.createElement('input');
+    //checkbox.setAttribute('type', 'checkbox');
+    //checkbox.setAttribute('class', 'd-flex align-items')
 
-});
-editItemBtn.addEventListener('click', function (e) {
+    //pElement.appendChild(checkbox);
+    addToList.append(pElement);
+    lNum++;
 
-});
+}
+
+if (localStorage.getItem('todo') !== '') {
+    console.log(JSON.parse(localStorage.getItem('todo')));
+    let todoLocal = JSON.parse(localStorage.getItem('todo'));
+    //populate array itemes into p tags
+    for (let i = 0; i < todoLocal.length; i++) {
+        populateList(todoLocal[i]);
+    }
+    toDoElements = todoLocal;
+}
