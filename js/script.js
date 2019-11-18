@@ -26,6 +26,16 @@ inputText.addEventListener('keypress', function (e) {
     }
 });
 
+deleteItemBtn.addEventListener('click', function(e){
+
+    //console.log(JSON.parse(localStorage.getItem('todo')));
+    let todoLocal = JSON.parse(localStorage.getItem('todo'));
+    //populate array itemes into p tags
+    for (let i = 0; i < todoLocal.length; i++) {
+        todoLocal.splice([i],1);
+    }
+});
+
 function populateList(content) {
     //console.log(event.toElement.id);
     //put data into p tag
@@ -34,9 +44,9 @@ function populateList(content) {
     pElement.setAttribute('class', 'list-group-item');
     pElement.setAttribute('id', lNum);
     pElement.addEventListener('click', function (e) {
-        //console.log(event.target);
+        console.log(event);
         //this will delete the item from the to-do list
-        event.target.remove();
+        event.returnValue = false;
     });
 
     // Assigning the attributes 
