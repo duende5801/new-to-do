@@ -28,11 +28,8 @@ inputText.addEventListener('keypress', function (e) {
 
 deleteItemBtn.addEventListener('click', function(e){
 
-    //console.log(JSON.parse(localStorage.getItem('todo')));
-    let todoLocal = JSON.parse(localStorage.getItem('todo'));
-    //populate array itemes into p tags
-    for (let i = 0; i < todoLocal.length; i++) {
-        todoLocal.splice([i],1);
+    for (let i = 0; i < toDoElements.length; i++) {
+        toDoElements.splice([i],1);
     }
 });
 
