@@ -1,10 +1,22 @@
 .grey{
     background-color: dimgrey;
 }
+h1{
+    color: white;
+}
 .white{
     background-color: white;
     background-image: url(../images/todobg.jpg);
     background-size: cover;
     background-position: top left;
-    height: 100vh;
+    height: 110vh;
+}
+.list-group-item {
+    background-color: transparent;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-weight: bolder;
+    color: black;
 }
