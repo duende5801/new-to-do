@@ -27,10 +27,10 @@ inputText.addEventListener('keypress', function (e) {
 });
 
 deleteItemBtn.addEventListener('click', function(e){
-
-    for (let i = 0; i < toDoElements.length; i++) {
-        toDoElements.splice([i],1);
-    }
+    //deletes all local storage
+    //'todo' is the key (which is how you use removeItem())
+    //the values are the individual todo items inside the local storage
+    localStorage.removeItem('todo')
 });
 
 function populateList(content) {
@@ -41,18 +41,16 @@ function populateList(content) {
     pElement.setAttribute('class', 'list-group-item');
     pElement.setAttribute('id', lNum);
     pElement.addEventListener('click', function (e) {
-        console.log(event);
+        //console.log(event);
         //this will delete the item from the to-do list
-        event.returnValue = false;
+        //toDoElements is empty upon page refresh you have to call the .getItem('todo')
+        event.target.remove();
+        for (let i = 0; i < toDoElements.length; i++) {
+            if (toDoElements.innerText === event.target.innerText) {
+                toDoElements.splice(i,1);  
+            }
+        }
     });
-
-    // Assigning the attributes 
-    // to created checkbox 
-    //let checkbox = document.createElement('input');
-    //checkbox.setAttribute('type', 'checkbox');
-    //checkbox.setAttribute('class', 'd-flex align-items')
-
-    //pElement.appendChild(checkbox);
     addToList.append(pElement);
     lNum++;
 
