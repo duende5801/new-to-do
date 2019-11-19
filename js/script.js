@@ -8,6 +8,7 @@ let lNum = 0;
 
 let inputText = document.getElementById('inputText');
 let deleteItemBtn = document.getElementById('deleteItem');
+let addItemBtn = document.getElementById('addItem');
 
 //html append id
 let addToList = document.getElementById('addToList');
@@ -26,11 +27,25 @@ inputText.addEventListener('keypress', function (e) {
     }
 });
 
+addItemBtn.addEventListener('click', function (e) {
+    console.log(e.code);
+    if (inputText.value !== '') {
+        populateList(inputText.value);
+        //going to save value into array
+        toDoElements.push(inputText.value);
+        //save item to local storage
+        localStorage.setItem('todo', JSON.stringify(toDoElements));
+        inputText.value = "";
+    }
+});
+
+
 deleteItemBtn.addEventListener('click', function(e){
     //deletes all local storage
     //'todo' is the key (which is how you use removeItem())
     //the values are the individual todo items inside the local storage
     localStorage.removeItem('todo')
+    location.reload();
 });
 
 function populateList(content) {
@@ -39,22 +54,30 @@ function populateList(content) {
     let pElement = document.createElement('p');
     pElement.innerText = content;
     pElement.setAttribute('class', 'list-group-item');
+    pElement.setAttribute('contentEditable', true);
     pElement.setAttribute('id', lNum);
-    pElement.addEventListener('click', function (e) {
-        //console.log(event);
+    pElement.addEventListener('click', function(e){
+        if (e.code === 'Enter' && pElement !== '') {
+            //going to save value into array
+            toDoElements.push(pElement.innerText);
+            //save item to local storage
+            localStorage.setItem('todo', JSON.stringify(toDoElements));
+            inputText.value = "";
+            location.reload();
+        }    
+    });
+    pElement.addEventListener('dblclick', function (e) {
         //this will delete the item from the to-do list
-        //toDoElements is empty upon page refresh you have to call the .getItem('todo')
+        //console.log(e);
+        deleteFromLocal(e.toElement.innerText);
         event.target.remove();
-        for (let i = 0; i < toDoElements.length; i++) {
-            if (toDoElements.innerText === event.target.innerText) {
-                toDoElements.splice(i,1);  
-            }
-        }
     });
     addToList.append(pElement);
     lNum++;
 
 }
+//showing todElements has data in it even when its refreshed. todoElements != 'todo' (local storage)
+console.log("When Refreshed "+ toDoElements);
 
 if (localStorage.getItem('todo') !== '') {
     console.log(JSON.parse(localStorage.getItem('todo')));
@@ -64,4 +87,19 @@ if (localStorage.getItem('todo') !== '') {
         populateList(todoLocal[i]);
     }
     toDoElements = todoLocal;
+}
+
+function deleteFromLocal(x){
+ //   toDoElements = JSON.parse(localStorage.getItem('todo'));
+    console.log(toDoElements);
+    for (let i = 0; i<toDoElements.length; i++){
+        console.log(toDoElements[i] + ": "+ x);
+        if(toDoElements[i] === x)
+        {
+            toDoElements.splice(i,1);
+            console.log("-----------------Spliced");
+            localStorage.setItem('todo',JSON.stringify(toDoElements));
+        }
+    }
+    console.log("after Splice"+toDoElements);
 }

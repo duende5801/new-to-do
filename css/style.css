@@ -8,8 +8,7 @@ h1{
     background-color: white;
     background-image: url(../images/todobg.jpg);
     background-size: cover;
-    background-position: top left;
-    height: 110vh;
+    background-position: center left;
 }
 .list-group-item {
     background-color: transparent;
