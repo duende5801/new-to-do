@@ -79,7 +79,7 @@ function populateList(content) {
         deleteFromLocal(e.toElement.innerText);
         event.target.remove();
     });
- */    addToList.append(pElement);
+ */    addToList.prepend(pElement);
     lNum++;
 
 }
