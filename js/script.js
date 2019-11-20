@@ -25,6 +25,7 @@ inputText.addEventListener('keypress', function (e) {
         localStorage.setItem('todo', JSON.stringify(toDoElements));
         inputText.value = "";
     }
+
 });
 
 addItemBtn.addEventListener('click', function (e) {
@@ -40,7 +41,7 @@ addItemBtn.addEventListener('click', function (e) {
 });
 
 
-deleteItemBtn.addEventListener('click', function(e){
+deleteItemBtn.addEventListener('click', function (e) {
     //deletes all local storage
     //'todo' is the key (which is how you use removeItem())
     //the values are the individual todo items inside the local storage
@@ -54,52 +55,67 @@ function populateList(content) {
     let pElement = document.createElement('p');
     pElement.innerText = content;
     pElement.setAttribute('class', 'list-group-item');
-    pElement.setAttribute('contentEditable', true);
     pElement.setAttribute('id', lNum);
-    pElement.addEventListener('click', function(e){
-        if (e.code === 'Enter' && pElement !== '') {
-            //going to save value into array
-            toDoElements.push(pElement.innerText);
-            //save item to local storage
-            localStorage.setItem('todo', JSON.stringify(toDoElements));
-            inputText.value = "";
-            location.reload();
-        }    
-    });
-    pElement.addEventListener('dblclick', function (e) {
+//----------------------------Edit Function-----------------//
+    pElement.addEventListener('click', function (e) {
+        //pElement.contentEditable = true;
+        deleteFromLocal(e.toElement.innerText);
+        inputText.value = pElement.innerText;
+        pElement.innerText = '';
+        event.target.remove();
+/*         pElement.addEventListener('keypress', function (e) {
+            if (e.code === 'Enter' && pElement.innerText !== '') {
+                //going to save value into array
+                toDoElements.push(pElement.innerText);
+                //save item to local storage
+                localStorage.setItem('todo', JSON.stringify(toDoElements));
+                location.reload();
+            }
+        });
+ */    });
+/*     pElement.addEventListener('dblclick', function (e) {
         //this will delete the item from the to-do list
         //console.log(e);
         deleteFromLocal(e.toElement.innerText);
         event.target.remove();
     });
-    addToList.append(pElement);
+ */    addToList.append(pElement);
     lNum++;
 
 }
+
+
 //showing todElements has data in it even when its refreshed. todoElements != 'todo' (local storage)
-console.log("When Refreshed "+ toDoElements);
+console.log("When Refreshed " + toDoElements);
 
 if (localStorage.getItem('todo') !== '') {
     console.log(JSON.parse(localStorage.getItem('todo')));
     let todoLocal = JSON.parse(localStorage.getItem('todo'));
-    //populate array itemes into p tags
+    //populate array items into p tags
     for (let i = 0; i < todoLocal.length; i++) {
         populateList(todoLocal[i]);
     }
     toDoElements = todoLocal;
 }
 
-function deleteFromLocal(x){
- //   toDoElements = JSON.parse(localStorage.getItem('todo'));
+//show an empty state screen
+if (toDoElements === null) {
+    let imgElement = createElement('img');
+    imgElement.setAttribute('src', '../images/empty-screen-state.jpg');
+    imgElement.className = '';
+    addToList.append(imgElement);
+}
+
+function deleteFromLocal(x) {
+    //   toDoElements = JSON.parse(localStorage.getItem('todo'));
     console.log(toDoElements);
-    for (let i = 0; i<toDoElements.length; i++){
-        console.log(toDoElements[i] + ": "+ x);
-        if(toDoElements[i] === x)
-        {
-            toDoElements.splice(i,1);
+    for (let i = 0; i < toDoElements.length; i++) {
+        console.log(toDoElements[i] + ": " + x);
+        if (toDoElements[i] === x) {
+            toDoElements.splice(i, 1);
             console.log("-----------------Spliced");
-            localStorage.setItem('todo',JSON.stringify(toDoElements));
+            localStorage.setItem('todo', JSON.stringify(toDoElements));
         }
     }
-    console.log("after Splice"+toDoElements);
+    console.log("after Splice" + toDoElements);
 }
