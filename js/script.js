@@ -1,6 +1,7 @@
 //---------------global variables-------------//
 let toDoElements = [];
 let lNum = 0;
+let count = 1;
 
 //---------------grab all elements------------//
 
@@ -9,11 +10,22 @@ let lNum = 0;
 let inputText = document.getElementById('inputText');
 let deleteItemBtn = document.getElementById('deleteItem');
 let addItemBtn = document.getElementById('addItem');
+let addNewListBtn = document.getElementById('addNewList');
 
 //html append id
 let addToList = document.getElementById('addToList');
+let dropLink = document.getElementById('hrefAdd');
 
 //-------------add event listeners----------//
+
+/* addNewListBtn.addEventListener('click', function(e){
+    let aElement = document.createElement('a');
+    aElement.setAttribute('href', '#'+count);
+    aElement.innerText = 'List ' + count;
+    count++
+    dropLink.append(aElement);
+});
+ */
 
 inputText.addEventListener('keypress', function (e) {
     console.log(e.code);
@@ -61,6 +73,7 @@ function populateList(content) {
         //pElement.contentEditable = true;
         deleteFromLocal(e.toElement.innerText);
         inputText.value = pElement.innerText;
+        inputText.focus();
         pElement.innerText = '';
         event.target.remove();
 /*         pElement.addEventListener('keypress', function (e) {
